@@ -86,16 +86,41 @@ public class ReactTextViewManager extends BaseViewManager<ReactTextView, ReactTe
     // none", 'underline', 'line-through', 'underline line-through
     int paintFlags = view.getPaintFlags();
     if (textDecorationLine == null || "none".equals(textDecorationLine)) {
-      view.setPaintFlags(paintFlags & ~Paint.UNDERLINE_TEXT_FLAG & ~Paint.STRIKE_THRU_TEXT_FLAG);
+      view.setTextDecorationLine(null);
+      //view.setPaintFlags(paintFlags & ~Paint.UNDERLINE_TEXT_FLAG & ~Paint.STRIKE_THRU_TEXT_FLAG);
     } else if ("underline".equals(textDecorationLine)) {
-      view.setPaintFlags(paintFlags | Paint.UNDERLINE_TEXT_FLAG & ~Paint.STRIKE_THRU_TEXT_FLAG);
+      view.setTextDecorationLine(ReactTextView.TextDecorationLine.UNDERLINE);
+      //view.setPaintFlags(paintFlags | Paint.UNDERLINE_TEXT_FLAG & ~Paint.STRIKE_THRU_TEXT_FLAG);
     } else if ("line-through".equals(textDecorationLine)) {
-      view.setPaintFlags(paintFlags & ~Paint.UNDERLINE_TEXT_FLAG | Paint.STRIKE_THRU_TEXT_FLAG);
+      view.setTextDecorationLine(ReactTextView.TextDecorationLine.LINE_THROUGH);
+      //view.setPaintFlags(paintFlags & ~Paint.UNDERLINE_TEXT_FLAG | Paint.STRIKE_THRU_TEXT_FLAG);
     } else if ("underline line-through".equals(textDecorationLine)) {
-      view.setPaintFlags(paintFlags | Paint.UNDERLINE_TEXT_FLAG | Paint.STRIKE_THRU_TEXT_FLAG);
+      view.setTextDecorationLine(ReactTextView.TextDecorationLine.UNDERLINE_LINE_THROUGH);
+      //view.setPaintFlags(paintFlags | Paint.UNDERLINE_TEXT_FLAG | Paint.STRIKE_THRU_TEXT_FLAG);
     } else {
       throw new JSApplicationIllegalArgumentException("Invalid textDecorationLine: " + textDecorationLine);
     }
+  }
+
+  @ReactProp(name = ViewProps.TEXT_DECORATION_STYLE)
+  public void setTextDecorationStyle(ReactTextView view, @Nullable String textDecorationStyle) {
+    // none", 'underline', 'line-through', 'underline line-through
+    if (textDecorationStyle == null || "solid".equals(textDecorationStyle)) {
+      view.setTextDecorationStyle(ReactTextView.TextDecorationStyle.SOLID);
+    } else if ("double".equals(textDecorationStyle)) {
+      view.setTextDecorationStyle(ReactTextView.TextDecorationStyle.DOUBLE);
+    } else if ("dotted".equals(textDecorationStyle)) {
+      view.setTextDecorationStyle(ReactTextView.TextDecorationStyle.DOTTED);
+    } else if ("dashed".equals(textDecorationStyle)) {
+      view.setTextDecorationStyle(ReactTextView.TextDecorationStyle.DASHED);
+    } else {
+      throw new JSApplicationIllegalArgumentException("Invalid textDecorationStyle: " + textDecorationStyle);
+    }
+  }
+
+  @ReactProp(name = ViewProps.TEXT_DECORATION_COLOR)
+  public void setTextDecorationColor(ReactTextView view, @Nullable Integer color) {
+    view.setTextDecorationColor(color);
   }
 
   @Override
